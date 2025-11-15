@@ -9,21 +9,23 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: RajPhotography
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
       - name: Install Dependencies
-        working-directory: RajPhotography
         run: npm install
 
       - name: Build Angular App
-        working-directory: RajPhotography
         run: npm run build -- --base-href="/Raj-Photography/" --deploy-url="/Raj-Photography/"
 
       - name: Deploy to GitHub Pages
