@@ -1,0 +1,201 @@
+<div class="bg-black text-gray-300 font-sans relative min-h-screen">
+
+  <!-- Left Sidebar -->
+  <aside class="fixed top-0 left-0 h-full z-40 text-white w-24 hidden md:flex flex-col items-center justify-center space-y-8 py-8">
+    <div class="absolute top-8 text-2xl font-bold font-sans tracking-widest">
+      <!-- <a href="#home">Photography</a> -->
+    </div>
+    <div class="h-1/4 w-px bg-white bg-opacity-25"></div>
+    <div class="flex flex-col space-y-6">
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="hover:text-white text-gray-400 transition-colors" aria-label="Instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href="https://wa.me/910000000000" target="_blank" rel="noopener noreferrer" class="hover:text-white text-gray-400 transition-colors" aria-label="WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+        </svg>
+      </a>
+    </div>
+    <div class="h-1/4 w-px bg-white bg-opacity-25"></div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="md:ml-24">
+    <!-- Hero Section -->
+    <section id="home" class="h-screen bg-cover bg-center flex flex-col relative" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.pexels.com/photos/2929411/pexels-photo-2929411.jpeg?auto=compress&cs=tinysrgb&w=1920');">
+      <header class="w-full p-6 sm:p-8 z-30">
+        <div class="flex justify-between items-center">
+          <a href="#home" (click)="scrollTo($event, 'home')" class="text-2xl font-serif font-bold text-white tracking-wider cursor-pointer">Raj Photography</a>
+
+          <!-- Desktop Navigation -->
+          <nav class="hidden md:flex space-x-4 sm:space-x-8 text-sm sm:text-base">
+            <a href="#home" (click)="scrollTo($event, 'home')" class="text-white font-medium hover:text-gray-300 transition-colors cursor-pointer">Home</a>
+            <a href="#about" (click)="scrollTo($event, 'about')" class="text-white font-medium hover:text-gray-300 transition-colors cursor-pointer">About</a>
+            <a href="#services" (click)="scrollTo($event, 'services')" class="text-white font-medium hover:text-gray-300 transition-colors cursor-pointer">Services</a>
+            <a href="#portfolio" (click)="scrollTo($event, 'portfolio')" class="text-white font-medium hover:text-gray-300 transition-colors cursor-pointer">Portfolio</a>
+            <a href="#blog" (click)="scrollTo($event, 'blog')" class="text-white font-medium hover:text-gray-300 transition-colors cursor-pointer">Blog</a>
+            <a href="#contact" (click)="scrollTo($event, 'contact')" class="text-white font-medium hover:text-gray-300 transition-colors cursor-pointer">Contact</a>
+          </nav>
+
+          <!-- Mobile menu button -->
+          <div class="md:hidden">
+            <button (click)="toggleMenu()" class="text-white focus:outline-none">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                @if (!isMenuOpen()) {
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                } @else {
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                }
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile menu -->
+        @if (isMenuOpen()) {
+          <nav class="md:hidden mt-4 bg-black/50 backdrop-blur-sm rounded-lg">
+            <a href="#home" (click)="scrollTo($event, 'home')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">Home</a>
+            <a href="#about" (click)="scrollTo($event, 'about')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">About</a>
+            <a href="#services" (click)="scrollTo($event, 'services')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">Services</a>
+            <a href="#portfolio" (click)="scrollTo($event, 'portfolio')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">Portfolio</a>
+            <a href="#blog" (click)="scrollTo($event, 'blog')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">Blog</a>
+            <a href="#contact" (click)="scrollTo($event, 'contact')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">Contact</a>
+          </nav>
+        }
+      </header>
+      <div class="flex-grow flex items-center justify-center text-center text-white px-4">
+        <div>
+          <h1 class="text-5xl md:text-8xl font-serif font-bold tracking-tight">Raj Photography</h1>
+          <p class="text-lg md:text-2xl mt-4 font-sans tracking-wider uppercase">Indian Wedding Photographer</p>
+        </div>
+      </div>
+    </section>
+
+    <main class="bg-black">
+      <!-- About Section -->
+      <section id="about" class="py-20">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+          <div class="md:w-1/2">
+            <img src="https://images.pexels.com/photos/3206118/pexels-photo-3206118.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Photographer Raj" class="rounded-lg shadow-2xl mx-auto object-cover w-full h-full max-w-md">
+          </div>
+          <div class="md:w-1/2 text-center md:text-left">
+            <h2 class="text-4xl font-serif font-bold mb-4 text-white">About The Photographer</h2>
+            <p class="text-lg text-gray-400 leading-relaxed">
+              Welcome to Raj Photography. With a deep passion for storytelling and an eye for candid moments, I specialize in capturing the vibrant and emotional tapestry of Indian weddings. My goal is to create timeless images that reflect the beauty, traditions, and joy of your special day. I am dedicated to providing a professional, comfortable, and unforgettable experience for all my clients.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services Section -->
+      <section id="services" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6 text-center">
+          <h2 class="text-4xl font-serif font-bold mb-12 text-white">Our Services</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            @for (service of services; track service.title) {
+              <div class="bg-gray-800 rounded-lg overflow-hidden group">
+                <img [src]="service.imageUrl" [alt]="service.title" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
+                <div class="p-6 text-left">
+                  <h3 class="text-2xl font-semibold mb-3 text-white">{{ service.title }}</h3>
+                  <p class="text-gray-400 leading-relaxed">{{ service.description }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- Portfolio Section -->
+      <section id="portfolio" class="py-20">
+        <div class="container mx-auto px-6 text-center">
+          <h2 class="text-4xl font-serif font-bold mb-12 text-white">Portfolio</h2>
+          <div class="flex justify-center flex-wrap gap-2 mb-12">
+            @for (category of portfolioCategories; track category) {
+              <button (click)="setFilter(category)" 
+                [class]="'px-6 py-2 rounded-full text-sm font-medium transition-colors border ' + (activeFilter() === category ? 'bg-white text-black border-white' : 'bg-transparent text-gray-300 border-gray-600 hover:bg-gray-800 hover:border-gray-500')">
+                {{ category }}
+              </button>
+            }
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+            @for (item of filteredPortfolio(); track item.imageUrl) {
+              <div class="relative overflow-hidden rounded-lg group aspect-[4/5]">
+                <img [src]="item.imageUrl" [alt]="item.title" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-500 flex items-center justify-center">
+                  <p class="text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-500">{{ item.title }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </section>
+      
+      <!-- Blog Section -->
+      <section id="blog" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+          <h2 class="text-4xl font-serif font-bold text-center mb-12 text-white">From The Blog</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            @for (post of blogPosts; track post.title) {
+              <div class="bg-gray-800 rounded-lg overflow-hidden group">
+                <img [src]="post.imageUrl" [alt]="post.title" class="w-full h-48 object-cover group-hover:opacity-80 transition-opacity">
+                <div class="p-6">
+                  <p class="text-sm text-gray-400 mb-2">{{ post.date }}</p>
+                  <h3 class="text-xl font-semibold text-white mb-2">{{ post.title }}</h3>
+                  <p class="text-gray-400 text-sm">{{ post.excerpt }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="py-20">
+        <div class="container mx-auto px-6">
+          <h2 class="text-4xl font-serif font-bold text-center mb-12 text-white">Get In Touch</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+            <div class="text-gray-300">
+              <h3 class="text-2xl font-semibold mb-4 text-white">Contact Details</h3>
+              <div class="space-y-4">
+                <p><strong>City:</strong> Pune, India</p>
+                <p><strong>Address:</strong> Nanded City, Pune 411058</p>
+                <p><strong>Email:</strong> contact@rajphotography.com</p>
+                <p><strong>Phone:</strong> +91 96654 36634</p>
+              </div>
+              <div class="mt-8">
+                <a href="#" target="_blank" class="inline-block bg-white text-black font-bold py-3 px-8 rounded-lg hover:bg-gray-200 transition-colors">Book a Session</a>
+              </div>
+            </div>
+            <div>
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d242117.68101481216!2d73.72288019375002!3d18.5245648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43bf9d9ee343!2sPune%2C%20Maharashtra%2C%20India!5e0!3m2!1sen!2sus!4v1628000000000!5m2!1sen!2sus"
+                width="100%" 
+                height="350" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy"
+                class="rounded-lg shadow-md grayscale invert-[90%]">
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-8">
+      <div class="container mx-auto px-6 text-center text-gray-500">
+        <div class="flex justify-center space-x-6 mb-4">
+          <a href="#" class="hover:text-white transition-colors">Instagram</a>
+          <a href="#" class="hover:text-white transition-colors">Facebook</a>
+          <a href="#" class="hover:text-white transition-colors">YouTube</a>
+        </div>
+        <p>&copy; 2025 Raj Photography. All Rights Reserved.</p>
+      </div>
+    </footer>
+  </div>
+</div>
