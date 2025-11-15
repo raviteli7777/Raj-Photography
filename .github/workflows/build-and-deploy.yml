@@ -3,7 +3,7 @@ name: Build and Deploy Angular App
 on:
   push:
     branches:
-      - Develop_1   # Deploy when pushing to Develop_1
+      - Develop_1
 
 jobs:
   build-deploy:
@@ -30,4 +30,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./RajPhotography/dist/raj-photography
+          publish_dir: RajPhotography/dist/raj-photography
