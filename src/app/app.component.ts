@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface PortfolioItem {
@@ -23,16 +23,17 @@ interface Service {
 })
 export class AppComponent {
   title = 'Raj Photography';
-  isMenuOpen = signal(false);
+  isMenuOpen = false;
+  activeFilter = 'All';
 
   toggleMenu(): void {
-    this.isMenuOpen.update(value => !value);
+    this.isMenuOpen = !this.isMenuOpen;
   }
 
   scrollTo(event: Event, sectionId: string): void {
     event.preventDefault();
-    if (this.isMenuOpen()) {
-      this.isMenuOpen.set(false);
+    if (this.isMenuOpen) {
+      this.isMenuOpen = false;
     }
     // Use a small timeout to allow mobile menu to start closing before scroll
     setTimeout(() => {
@@ -42,35 +43,35 @@ export class AppComponent {
       }
     }, 100);
   }
-  
+
   services: Service[] = [
-    { 
-      title: 'Wedding Photography', 
+    {
+      title: 'Wedding Photography',
       description: 'We capture the entire story of your wedding day, from the intimate moments to the grand celebrations, preserving every laugh, tear, and dance in stunning detail.',
       imageUrl: 'https://images.pexels.com/photos/11652315/pexels-photo-11652315.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
     },
-    { 
-      title: 'Bridal Photography', 
+    {
+      title: 'Bridal Photography',
       description: 'A session dedicated to the bride. We focus on capturing your elegance, beauty, and the intricate details of your attire in a series of breathtaking portraits.',
       imageUrl: 'https://images.pexels.com/photos/32726997/pexels-photo-32726997.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
     },
-    { 
-      title: 'Pre-Wedding Shoots', 
+    {
+      title: 'Pre-Wedding Shoots',
       description: 'Tell your unique love story with a creative and romantic pre-wedding photoshoot. We work with you to choose locations and concepts that reflect your personality as a couple.',
       imageUrl: 'https://images.pexels.com/photos/1024989/pexels-photo-1024989.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
     },
-    { 
-      title: 'Post-Wedding Shoots', 
+    {
+      title: 'Post-Wedding Shoots',
       description: 'Relax and relive the magic after the main event. A post-wedding shoot allows for creative photos in a stress-free environment, capturing the afterglow of your union.',
       imageUrl: 'https://images.pexels.com/photos/2532215/pexels-photo-2532215.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
     },
-    { 
-      title: 'Cinematic Videography', 
+    {
+      title: 'Cinematic Videography',
       description: 'We create a beautiful, movie-like highlight film of your wedding day. Using high-end equipment and storytelling techniques, we craft a visual narrative you\'ll cherish forever.',
       imageUrl: 'https://images.pexels.com/photos/33022972/pexels-photo-33022972.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
     },
-     { 
-      title: 'Events Photography', 
+    {
+      title: 'Events Photography',
       description: 'From sangeet nights and mehndi ceremonies to receptions and anniversaries, we cover all your special events with a keen eye for detail and candid moments.',
       imageUrl: 'https://images.pexels.com/photos/31733586/pexels-photo-31733586.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
     },
@@ -84,7 +85,6 @@ export class AppComponent {
 
   // Portfolio Data
   portfolioCategories = ['All', 'Indian Wedding', 'Pre-Wedding', 'Fashion', 'Events'];
-  activeFilter = signal('All');
 
   allPortfolioItems: PortfolioItem[] = [
     { category: 'Indian Wedding', imageUrl: 'https://images.pexels.com/photos/14899281/pexels-photo-14899281.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load', title: 'Sacred Vows' },
@@ -101,15 +101,18 @@ export class AppComponent {
     { category: 'Fashion', imageUrl: 'https://images.pexels.com/photos/16189088/pexels-photo-16189088/free-photo-of-a-woman-in-a-red-sari-is-posing-for-a-picture.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load', title: 'Sari Spotlight' },
   ];
 
-  filteredPortfolio = computed(() => {
-    const filter = this.activeFilter();
-    if (filter === 'All') {
+  get filteredPortfolio(): PortfolioItem[] {
+    if (this.activeFilter === 'All') {
       return this.allPortfolioItems;
     }
-    return this.allPortfolioItems.filter(item => item.category === filter);
-  });
+
+    return this.allPortfolioItems.filter(
+      (item: PortfolioItem) => item.category === this.activeFilter
+    );
+  }
 
   setFilter(category: string): void {
-    this.activeFilter.set(category);
+    this.activeFilter = category;
   }
+
 }

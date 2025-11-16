@@ -45,27 +45,22 @@
           <div class="md:hidden">
             <button (click)="toggleMenu()" class="text-white focus:outline-none">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                @if (!isMenuOpen()) {
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                } @else {
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                }
+                <path *ngIf="!isMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                <path *ngIf="isMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </button>
           </div>
         </div>
 
         <!-- Mobile menu -->
-        @if (isMenuOpen()) {
-          <nav class="md:hidden mt-4 bg-black/50 backdrop-blur-sm rounded-lg">
-            <a href="#home" (click)="scrollTo($event, 'home')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">Home</a>
-            <a href="#about" (click)="scrollTo($event, 'about')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">About</a>
-            <a href="#services" (click)="scrollTo($event, 'services')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">Services</a>
-            <a href="#portfolio" (click)="scrollTo($event, 'portfolio')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">Portfolio</a>
-            <a href="#blog" (click)="scrollTo($event, 'blog')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">Blog</a>
-            <a href="#contact" (click)="scrollTo($event, 'contact')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">Contact</a>
-          </nav>
-        }
+        <nav *ngIf="isMenuOpen" class="md:hidden mt-4 bg-black/50 backdrop-blur-sm rounded-lg">
+          <a href="#home" (click)="scrollTo($event, 'home')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">Home</a>
+          <a href="#about" (click)="scrollTo($event, 'about')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">About</a>
+          <a href="#services" (click)="scrollTo($event, 'services')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">Services</a>
+          <a href="#portfolio" (click)="scrollTo($event, 'portfolio')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">Portfolio</a>
+          <a href="#blog" (click)="scrollTo($event, 'blog')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">Blog</a>
+          <a href="#contact" (click)="scrollTo($event, 'contact')" class="block py-3 px-4 text-center text-white hover:bg-white/10 transition-colors">Contact</a>
+        </nav>
       </header>
       <div class="flex-grow flex items-center justify-center text-center text-white px-4">
         <div>
@@ -96,15 +91,13 @@
         <div class="container mx-auto px-6 text-center">
           <h2 class="text-4xl font-serif font-bold mb-12 text-white">Our Services</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            @for (service of services; track service.title) {
-              <div class="bg-gray-800 rounded-lg overflow-hidden group">
-                <img [src]="service.imageUrl" [alt]="service.title" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
-                <div class="p-6 text-left">
-                  <h3 class="text-2xl font-semibold mb-3 text-white">{{ service.title }}</h3>
-                  <p class="text-gray-400 leading-relaxed">{{ service.description }}</p>
-                </div>
+            <div *ngFor="let service of services" class="bg-gray-800 rounded-lg overflow-hidden group">
+              <img [src]="service.imageUrl" [alt]="service.title" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300">
+              <div class="p-6 text-left">
+                <h3 class="text-2xl font-semibold mb-3 text-white">{{ service.title }}</h3>
+                <p class="text-gray-400 leading-relaxed">{{ service.description }}</p>
               </div>
-            }
+            </div>
           </div>
         </div>
       </section>
@@ -114,22 +107,18 @@
         <div class="container mx-auto px-6 text-center">
           <h2 class="text-4xl font-serif font-bold mb-12 text-white">Portfolio</h2>
           <div class="flex justify-center flex-wrap gap-2 mb-12">
-            @for (category of portfolioCategories; track category) {
-              <button (click)="setFilter(category)" 
-                [class]="'px-6 py-2 rounded-full text-sm font-medium transition-colors border ' + (activeFilter() === category ? 'bg-white text-black border-white' : 'bg-transparent text-gray-300 border-gray-600 hover:bg-gray-800 hover:border-gray-500')">
-                {{ category }}
-              </button>
-            }
+            <button *ngFor="let category of portfolioCategories" (click)="setFilter(category)" 
+              [class]="'px-6 py-2 rounded-full text-sm font-medium transition-colors border ' + (activeFilter === category ? 'bg-white text-black border-white' : 'bg-transparent text-gray-300 border-gray-600 hover:bg-gray-800 hover:border-gray-500')">
+              {{ category }}
+            </button>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
-            @for (item of filteredPortfolio(); track item.imageUrl) {
-              <div class="relative overflow-hidden rounded-lg group aspect-[4/5]">
-                <img [src]="item.imageUrl" [alt]="item.title" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-500 flex items-center justify-center">
-                  <p class="text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-500">{{ item.title }}</p>
-                </div>
+            <div *ngFor="let item of filteredPortfolio" class="relative overflow-hidden rounded-lg group aspect-[4/5]">
+              <img [src]="item.imageUrl" [alt]="item.title" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+              <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-500 flex items-center justify-center">
+                <p class="text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-500">{{ item.title }}</p>
               </div>
-            }
+            </div>
           </div>
         </div>
       </section>
@@ -139,16 +128,14 @@
         <div class="container mx-auto px-6">
           <h2 class="text-4xl font-serif font-bold text-center mb-12 text-white">From The Blog</h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            @for (post of blogPosts; track post.title) {
-              <div class="bg-gray-800 rounded-lg overflow-hidden group">
-                <img [src]="post.imageUrl" [alt]="post.title" class="w-full h-48 object-cover group-hover:opacity-80 transition-opacity">
-                <div class="p-6">
-                  <p class="text-sm text-gray-400 mb-2">{{ post.date }}</p>
-                  <h3 class="text-xl font-semibold text-white mb-2">{{ post.title }}</h3>
-                  <p class="text-gray-400 text-sm">{{ post.excerpt }}</p>
-                </div>
+            <div *ngFor="let post of blogPosts" class="bg-gray-800 rounded-lg overflow-hidden group">
+              <img [src]="post.imageUrl" [alt]="post.title" class="w-full h-48 object-cover group-hover:opacity-80 transition-opacity">
+              <div class="p-6">
+                <p class="text-sm text-gray-400 mb-2">{{ post.date }}</p>
+                <h3 class="text-xl font-semibold text-white mb-2">{{ post.title }}</h3>
+                <p class="text-gray-400 text-sm">{{ post.excerpt }}</p>
               </div>
-            }
+            </div>
           </div>
         </div>
       </section>
